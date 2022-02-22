@@ -29,6 +29,8 @@ function operation() {
                 break;
             case 'Consultar Saldo':
             case 'Depositar':
+                deposit();
+                break;
             case 'Sacar':
             case 'Sair':
                 console.log(chalk.bgBlue.black('Obrigado por usar o Accounts!'));
@@ -74,4 +76,32 @@ function buildAccount() {
         console.log(chalk.green('Parabéns, a sua conta foi criada!'));
         operation();
     }).catch(err => console.log(err));
+}
+
+// add an amount to user account
+function deposit() {
+    inquirer.prompt([
+        {
+            name: 'accountName',
+            message: 'Qual o nome da sua conta'
+        }
+    ]).then((answer) => {
+        const accountName = answer['accountName'];
+        
+        // verify if account exists
+        if (!checkAccount(accountName)) {
+            return deposit();
+        }
+    }).catch((err) => {
+        console.log(err);
+    })
+}
+
+function checkAccount(accountName) {
+    if (!fs.existsSync(`accounts/${accountName}.json`)) {
+        console.log(chalk.bgRed.black('Esta conta não existe, escolha outro nome!'));
+        return false;
+    }
+
+    return true;
 }
