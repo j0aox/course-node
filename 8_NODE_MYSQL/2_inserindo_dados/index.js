@@ -52,5 +52,7 @@ con.connect(function (err) {
 
     console.log("Conectou ao MySQL!");
 
-    app.listen(3000);
+    app.listen(3000, () => {
+        console.log('O servidor está rodando na porta http://localhost:3000');
+    });
 });
