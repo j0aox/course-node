@@ -105,6 +105,7 @@ app.get("/", async (req, res) => {
 
 con
     .sync()
+    //.sync({ force: true }) // forçar a recriação das tabelas, perde todos os dados
     .then(() => {
         app.listen(3000, () => {
             console.log("Servidor rodando na porta http://localhost:3000");
